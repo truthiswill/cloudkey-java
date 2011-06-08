@@ -64,8 +64,8 @@
 <%
 String redirect_url = "http://" + InetAddress.getLocalHost().getHostName() + ":8080/examples/MediaCreate.jsp";
 
-CloudKey_Media media = new CloudKey_Media(user_id, api_key);
-DCObject result = media.upload(true, true, redirect_url);
+CloudKey cloud = new CloudKey(user_id, api_key);
+DCObject result = cloud.fileUpload(true, "?", redirect_url);
 String status_url = result.pull("status");
 String upload_url = result.pull("url");
 %>

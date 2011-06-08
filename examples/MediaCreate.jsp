@@ -3,6 +3,6 @@
 <%
     String url = request.getParameter("url");
 
-    CloudKey_Media media = new CloudKey_Media(user_id, api_key);
-    out.write("video id : " + media.create(url));
+    CloudKey cloud = new CloudKey(user_id, api_key);
+    out.write("video id : " + cloud.mediaCreate(url));
 %>

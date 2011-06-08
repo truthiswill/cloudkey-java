@@ -6,9 +6,9 @@ import junit.framework.TestCase;
 
 public class CloudKey_Test extends TestCase
 {
-	final String user_id = "YOUR USER ID";
-	final String api_key = "YOUR API KEY";
-	final String video_id = "YOUR VIDEO ID";
+	public static String user_id = "YOUR USER ID";
+	public static String api_key = "YOUR API KEY";
+	public static String video_id = "YOUR VIDEO ID";
 	
 	public void testCloudKey_Normalize()
 	{
@@ -59,7 +59,7 @@ public class CloudKey_Test extends TestCase
 		{
 			CloudKey cloud = new CloudKey(user_id, api_key);
 			String[] referers = {"http://test.dmcloud.net"};
-			cloud.get_embed_url(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
+			cloud.getEmbedUrl(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
 		}
 		catch(Exception e)
 		{
@@ -72,7 +72,7 @@ public class CloudKey_Test extends TestCase
 		try
 		{
 			CloudKey cloud = new CloudKey(user_id, api_key);
-			cloud.get_stream_url(video_id);
+			cloud.getStreamUrl(video_id);
 		}
 		catch(Exception e)
 		{

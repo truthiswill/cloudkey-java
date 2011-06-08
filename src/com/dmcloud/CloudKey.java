@@ -1,107 +1,44 @@
 package com.dmcloud;
 
+import java.io.*;
 import java.util.Map;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class CloudKey
+public class CloudKey extends CloudKey_Api
 {
-	public static int CLOUDKEY_SECLEVEL_NONE      = 0;
-	public static int CLOUDKEY_SECLEVEL_DELEGATE  = 1 << 0;
-	public static int CLOUDKEY_SECLEVEL_ASNUM     = 1 << 1;
-	public static int CLOUDKEY_SECLEVEL_IP        = 1 << 2;
-	public static int CLOUDKEY_SECLEVEL_USERAGENT = 1 << 3;
-	public static int CLOUDKEY_SECLEVEL_USEONCE   = 1 << 4;
-	public static int CLOUDKEY_SECLEVEL_COUNTRY   = 1 << 5;
-	public static int CLOUDKEY_SECLEVEL_REFERER   = 1 << 6;
-	
-	public static String CLOUDKEY_API_URL = "http://api.dmcloud.net";
-	public static String CLOUDKEY_CDN_URL = "http://cdn.dmcloud.net";
-	public static String CLOUDKEY_STATIC_URL = "http://static.dmcloud.net";
-
-	protected String user_id = null;
-	protected String api_key = null;
-	protected String base_url = null;
-	protected String cdn_url = null;
-	protected String proxy = null;
-
 	public CloudKey(String _user_id, String _api_key) throws Exception
 	{
-		this(_user_id, _api_key, CLOUDKEY_API_URL, CLOUDKEY_CDN_URL, "");
+		super(_user_id, _api_key, CLOUDKEY_API_URL, CLOUDKEY_CDN_URL, "");
 	}
 
 	public CloudKey(String _user_id, String _api_key, String _base_url, String _cdn_url, String _proxy) throws Exception
 	{
-		if (_user_id == null || _api_key == null)
-		{
-			throw new CloudKey_Exception("You must provide valid user_id and api_key parameters");
-		}
-		this.user_id = _user_id;
-		this.api_key = _api_key;
-		this.base_url = _base_url;
-		this.cdn_url = _cdn_url;
-		this.proxy = _proxy;
-	}
-
-	public DCObject call(String call, DCObject args) throws Exception
-	{
-		ObjectMapper mapper = new ObjectMapper();
-
-		DCObject jo = DCObject.create()
-							  .push("call", call)
-							  .push("args", args);
-		
-		jo.push("auth", this.user_id + ":"  + CloudKey_Helpers.md5(this.user_id + CloudKey_Helpers.normalize(jo) + this.api_key));
-		
-		String json_encoded = mapper.writeValueAsString(jo);
-		String response = CloudKey_Helpers.curl(this.base_url + "/api", json_encoded);
-		DCObject json_response = DCObject.create(mapper.readValue(response, Map.class));
-		if (json_response.containsKey("error"))
-		{
-			String message = "";
-			int error_code = Integer.parseInt(json_response.pull("error.code"));
-			switch (error_code)
-			{
-				case 200  : message = "ProcessorException"; break;
-				case 300  : message = "TransportException"; break;
-				case 400  : message = "AuthenticationErrorException"; break;
-				case 410  : message = "RateLimitExceededException"; break;
-				case 500  : message = "SerializerException"; break;
-				
-				case 600  : message = "InvalidRequestException"; break;
-				case 610  : message = "InvalidObjectException"; break;
-				case 620  : message = "InvalidMethodException"; break;
-				case 630  : message = "InvalidParamException"; break;
-				
-				case 1000 : message = "ApplicationException"; break;
-				case 1010 : message = "NotFoundException"; break;
-				case 1020 : message = "ExistsException"; break;
-				case 1030 : message = "LimitExceededException"; break;
-				
-				default   : message = "RPCException (error:" + json_response.pull("error.code").toString() + ")"; break;
-			}
-			message += " : " + json_response.pull("error.message").toString();
-			throw new CloudKey_Exception(message, error_code);
-		}
-		return DCObject.create((Map)json_response.get("result"));
+		super(_user_id, _api_key, _base_url, _cdn_url, _proxy);
 	}
 	
-	public String get_embed_url(String id) throws CloudKey_Exception
+	public String getEmbedUrl(String id) throws CloudKey_Exception
 	{
-		return this.get_embed_url(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return this.getEmbedUrl(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 	
-	public String get_embed_url(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
+	public String getEmbedUrl(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
 	{
 		String _url = url + "/embed/" + this.user_id + "/" + id;
 		return CloudKey_Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires);
 	}
 	
-	public String get_stream_url(String id) throws CloudKey_Exception
+	public String getStreamUrl(String id) throws CloudKey_Exception
 	{
-		return this.get_stream_url(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+		return this.getStreamUrl(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
 	}
 	
-	public String get_stream_url(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception
+	public String getStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception
 	{
 		if (extension == "")
 		{
@@ -117,5 +54,107 @@ public class CloudKey
 			String _url = this.cdn_url + "/route/" + this.user_id + "/" + id + "/" + asset_name + ((extension != "") ? "." + extension : "");
 			return CloudKey_Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires) + (download ? "&throttle=0&helper=0&cache=0" : "");
 		}
+	}
+	
+	public String mediaCreate() throws Exception
+	{
+		return mediaCreate("");
+	}
+	
+	public String mediaCreate(String url) throws Exception
+	{
+		return mediaCreate(url, null, null);
+	}
+	
+	public String mediaCreate(String url, DCArray assets_names, DCObject meta) throws Exception
+	{
+		DCObject args = DCObject.create().push("url", url);
+		if (assets_names != null && assets_names.size() > 0)
+		{
+			args.push("assets_names", assets_names);
+		}
+		if (meta != null && meta.size() > 0)
+		{
+			args.push("meta", meta);
+		}
+		DCObject result = this.call("media.create", args);
+		return result.pull("id");
+	}
+	
+	
+	public String mediaCreate(File f) throws Exception
+	{
+		return this.mediaCreate(f, null, null);
+	}
+	
+	public String mediaCreate(File f, DCArray assets_names, DCObject meta) throws Exception
+	{
+		String upload_url = this.fileUpload();
+		
+		PostMethod filePost = null;
+		try
+		{
+			filePost = new PostMethod(upload_url);
+			
+			Part[] parts = {
+				new FilePart("file", f)
+			};
+			
+			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
+			HttpClient client = new HttpClient();
+			client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+			
+			int status = client.executeMethod(filePost);
+			if (status == HttpStatus.SC_OK)
+			{
+				ObjectMapper mapper = new ObjectMapper();
+				DCObject json_response = DCObject.create(mapper.readValue(filePost.getResponseBodyAsString(), Map.class));
+				return this.mediaCreate(json_response.pull("url"), assets_names, meta);
+			}
+			else
+			{
+				throw new CloudKey_Exception("Upload failed.");
+			}
+		}
+		catch (Exception e)
+		{
+			throw new CloudKey_Exception("Upload failed.");
+		}
+		finally
+		{
+			if (filePost != null)
+			{
+				filePost.releaseConnection();
+			}
+		}
+	}
+	
+	public void mediaDelete(String id) throws Exception
+	{
+		this.call("media.delete", DCObject.create().push("id", id));
+	}
+	
+	public String fileUpload() throws Exception
+	{
+		DCObject result = fileUpload(false, "", "");
+		return result.pull("url");
+	}
+	
+	public DCObject fileUpload(Boolean status, String jsonp_cb, String target) throws Exception
+	{
+		DCObject args = DCObject.create();
+		if (status)
+		{
+			args.push("status", true);
+		}
+		if (jsonp_cb != "")
+		{
+			args.push("jsonp_cb", jsonp_cb);
+		}
+		if (target != "")
+		{
+			args.push("target", target);
+		}
+		return (DCObject) this.call("file.upload", args);
 	}
 }
