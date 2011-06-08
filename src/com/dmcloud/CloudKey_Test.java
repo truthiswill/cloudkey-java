@@ -9,11 +9,6 @@ public class CloudKey_Test extends TestCase
 	final String user_id = "YOUR USER ID";
 	final String api_key = "YOUR API KEY";
 	final String video_id = "YOUR VIDEO ID";
-
-	public void checkConfigFile()
-	{
-		System.exit(0);
-	}
 	
 	public void testCloudKey_Normalize()
 	{
@@ -62,9 +57,9 @@ public class CloudKey_Test extends TestCase
 	{
 		try
 		{
-			CloudKey_LL cloud = new CloudKey_LL(user_id, api_key);
+			CloudKey cloud = new CloudKey(user_id, api_key);
 			String[] referers = {"http://test.dmcloud.net"};
-			cloud.get_embed_url(CloudKey_LL.CLOUDKEY_API_URL, video_id, CloudKey_LL.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
+			cloud.get_embed_url(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
 		}
 		catch(Exception e)
 		{
@@ -76,7 +71,7 @@ public class CloudKey_Test extends TestCase
 	{
 		try
 		{
-			CloudKey_LL cloud = new CloudKey_LL(user_id, api_key);
+			CloudKey cloud = new CloudKey(user_id, api_key);
 			cloud.get_stream_url(video_id);
 		}
 		catch(Exception e)
@@ -89,7 +84,7 @@ public class CloudKey_Test extends TestCase
 	{
 		try
 		{
-			CloudKey_LL cloud = new CloudKey_LL(user_id, api_key);
+			CloudKey cloud = new CloudKey(user_id, api_key);
 			DCObject result = cloud.call
 			(
 				"media.list",
@@ -105,7 +100,7 @@ public class CloudKey_Test extends TestCase
 		}
 		catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -114,7 +109,7 @@ public class CloudKey_Test extends TestCase
 		Boolean error = false;
 		try
 		{
-			CloudKey_LL cloud = new CloudKey_LL(user_id.substring(0, 2), api_key);
+			CloudKey cloud = new CloudKey(user_id.substring(0, 2), api_key);
 			cloud.call
 			(
 				"media.list",
@@ -138,7 +133,7 @@ public class CloudKey_Test extends TestCase
 		Boolean error = false;
 		try
 		{
-			CloudKey_Helpers.sign_url("", "", CloudKey_LL.CLOUDKEY_SECLEVEL_COUNTRY, "", "", "", null, null, 0);
+			CloudKey_Helpers.sign_url("", "", CloudKey.CLOUDKEY_SECLEVEL_COUNTRY, "", "", "", null, null, 0);
 		}
 		catch (Exception e)
 		{

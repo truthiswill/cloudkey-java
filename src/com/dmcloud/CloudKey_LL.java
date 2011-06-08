@@ -88,7 +88,7 @@ public class CloudKey_LL
 	
 	public String get_embed_url(String id) throws CloudKey_Exception
 	{
-		return this.get_embed_url(CLOUDKEY_API_URL, id, CloudKey_LL.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return this.get_embed_url(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 	
 	public String get_embed_url(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
@@ -99,7 +99,7 @@ public class CloudKey_LL
 	
 	public String get_stream_url(String id) throws CloudKey_Exception
 	{
-		return this.get_stream_url(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey_LL.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+		return this.get_stream_url(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
 	}
 	
 	public String get_stream_url(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception

@@ -23,16 +23,16 @@ public class DCObject extends HashMap
 		return this;
 	}
 	
-	public String pull(String path) throws CloudKey_Exception
+	public String pull(String path)
 	{
 		try
 		{
-			String[] tokens = path.split("\\.");
-			if (tokens.length == 0)
+			if (!path.contains("."))
 			{
 				return this.get(path).toString();
 			}
-
+			
+			String[] tokens = path.split("\\.");
 			Map map = (Map)this.get(tokens[0]);
 			for(int i=1; i<tokens.length; i++)
 			{
@@ -45,11 +45,11 @@ public class DCObject extends HashMap
 					return map.get(tokens[i]).toString();
 				}
 			}
-			return "";
+			return "null";
 		}
-		catch (Exception e)
+		catch (java.lang.NullPointerException e)
 		{
-			throw new CloudKey_Exception("Item not found");
+			return "null";
 		}
 	}
 }

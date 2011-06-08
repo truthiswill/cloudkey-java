@@ -102,7 +102,7 @@ public class CloudKey_Helpers
 
 	static public String sign_url(String url, String secret) throws CloudKey_Exception
 	{
-		return sign_url(url, secret, CloudKey_LL.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return sign_url(url, secret, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 
 	static public String sign_url(String url, String secret, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires) throws CloudKey_Exception
@@ -120,9 +120,9 @@ public class CloudKey_Helpers
 
 		String secparams = "";
 		ArrayList<String> public_secparams = new ArrayList<String>();
-		if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_DELEGATE) == 0)
+		if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_DELEGATE) == 0)
 		{
-			if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_ASNUM) > 0)
+			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_ASNUM) > 0)
 			{
 				if (asnum == "")
 				{
@@ -130,7 +130,7 @@ public class CloudKey_Helpers
 				}
 				secparams += asnum;
 			}
-			if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_IP) > 0)
+			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_IP) > 0)
 			{
 				if (asnum == "")
 				{
@@ -138,7 +138,7 @@ public class CloudKey_Helpers
 				}
 				secparams += ip;
 			}
-			if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_USERAGENT) > 0)
+			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_USERAGENT) > 0)
 			{
 				if (asnum == "")
 				{
@@ -146,7 +146,7 @@ public class CloudKey_Helpers
 				}
 				secparams += useragent;
 			}
-			if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_COUNTRY) > 0)
+			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_COUNTRY) > 0)
 			{
 				if (countries == null || countries.length == 0)
 				{
@@ -154,7 +154,7 @@ public class CloudKey_Helpers
 				}
 				public_secparams.add("cc=" + implode(",", countries).toLowerCase());
 			}
-			if ((seclevel & CloudKey_LL.CLOUDKEY_SECLEVEL_REFERER) > 0)
+			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_REFERER) > 0)
 			{
 				if (referers == null || referers.length == 0)
 				{
