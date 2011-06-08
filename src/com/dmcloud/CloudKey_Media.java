@@ -58,28 +58,28 @@ public class CloudKey_Media extends CloudKey
 		
 		PostMethod filePost = null;
 		try
-		{			
+		{
 			filePost = new PostMethod(upload_url);
-
+			
 			Part[] parts = {
-					new FilePart("file", f)
+				new FilePart("file", f)
 			};
 			
 			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
 			HttpClient client = new HttpClient();
-            client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
-            
-            int status = client.executeMethod(filePost);
-            if (status == HttpStatus.SC_OK)
-            {
-    			ObjectMapper mapper = new ObjectMapper();
-            	DCObject json_response = DCObject.create(mapper.readValue(filePost.getResponseBodyAsString(), Map.class));
-            	return this.create(json_response.pull("url"), assets_names, meta);
-            }
-            else
-            {
-            	throw new CloudKey_Exception("Upload failed.");
-            }
+			client.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
+			
+			int status = client.executeMethod(filePost);
+			if (status == HttpStatus.SC_OK)
+			{
+				ObjectMapper mapper = new ObjectMapper();
+				DCObject json_response = DCObject.create(mapper.readValue(filePost.getResponseBodyAsString(), Map.class));
+				return this.create(json_response.pull("url"), assets_names, meta);
+			}
+			else
+			{
+				throw new CloudKey_Exception("Upload failed.");
+			}
 		}
 		catch (Exception e)
 		{
@@ -91,7 +91,7 @@ public class CloudKey_Media extends CloudKey
 			{
 				filePost.releaseConnection();
 			}
-        }
+		}
 	}
 	
 	public void delete(String id) throws Exception
