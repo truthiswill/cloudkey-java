@@ -4,9 +4,8 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="java.net.InetAddress"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ include file="Config.jsp"%>
 <%
-String user_id = "YOUR USER ID";
-String api_key = "YOUR API KEY";
 String server_url = "http://" + InetAddress.getLocalHost().getHostName();
 
 try

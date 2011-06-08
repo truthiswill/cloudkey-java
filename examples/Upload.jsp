@@ -60,10 +60,9 @@
 </style>
 <%@ page import="com.dmcloud.*"%>
 <%@ page import="java.net.InetAddress"%>
+<%@ include file="Config.jsp"%>
 <%
-String user_id = "YOUR USER ID";
-String api_key = "YOUR API KEY";
-String redirect_url = "http://" + InetAddress.getLocalHost().getHostName() + "/examples/MediaCreate.jsp";
+String redirect_url = "http://" + InetAddress.getLocalHost().getHostName() + ":8080/examples/MediaCreate.jsp";
 
 CloudKey_Media media = new CloudKey_Media(user_id, api_key);
 DCObject result = media.upload(true, true, redirect_url);
