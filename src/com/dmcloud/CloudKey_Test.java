@@ -59,7 +59,7 @@ public class CloudKey_Test extends TestCase
 		{
 			CloudKey cloud = new CloudKey(user_id, api_key);
 			String[] referers = {"http://test.dmcloud.net"};
-			cloud.getEmbedUrl(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
+			cloud.mediaGetEmbedUrl(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
 		}
 		catch(Exception e)
 		{
@@ -72,7 +72,7 @@ public class CloudKey_Test extends TestCase
 		try
 		{
 			CloudKey cloud = new CloudKey(user_id, api_key);
-			cloud.getStreamUrl(video_id);
+			cloud.mediaGetStreamUrl(video_id);
 		}
 		catch(Exception e)
 		{

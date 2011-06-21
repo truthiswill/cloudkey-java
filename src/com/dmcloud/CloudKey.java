@@ -22,23 +22,33 @@ public class CloudKey extends CloudKey_Api
 		super(_user_id, _api_key, _base_url, _cdn_url, _proxy);
 	}
 	
-	public String getEmbedUrl(String id) throws CloudKey_Exception
+	public String mediaGetEmbedUrl(String id) throws CloudKey_Exception
 	{
-		return this.getEmbedUrl(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return this.mediaGetEmbedUrl(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 	
-	public String getEmbedUrl(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
+	public String mediaGetEmbedUrl(String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
+	{
+		return this.mediaGetEmbedUrl(CLOUDKEY_API_URL, id, seclevel, asnum, ip, useragent, countries, referers, expires);
+	}
+
+	public String mediaGetEmbedUrl(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
 	{
 		String _url = url + "/embed/" + this.user_id + "/" + id;
 		return CloudKey_Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires);
 	}
-	
-	public String getStreamUrl(String id) throws CloudKey_Exception
+
+	public String mediaGetStreamUrl(String id) throws CloudKey_Exception
 	{
-		return this.getStreamUrl(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+		return this.mediaGetStreamUrl(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+	}
+
+	public String mediaGetStreamUrl(String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download) throws CloudKey_Exception
+	{
+		return this.mediaGetStreamUrl(CLOUDKEY_API_URL, id, asset_name, seclevel, asnum, ip, useragent, countries, referers, expires, extension, download);
 	}
 	
-	public String getStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception
+	public String mediaGetStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception
 	{
 		if (extension == "")
 		{
