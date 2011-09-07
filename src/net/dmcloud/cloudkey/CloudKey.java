@@ -1,4 +1,4 @@
-package net.dmcloud;
+package net.dmcloud.cloudkey;
 
 import java.io.*;
 import java.util.Map;
@@ -13,11 +13,11 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.codehaus.jackson.map.ObjectMapper;
 
-public class CloudKey extends CloudKey_Api
+public class CloudKey extends Api
 {
 	public CloudKey(String _user_id, String _api_key) throws Exception
 	{
-		super(_user_id, _api_key, CLOUDKEY_API_URL, CLOUDKEY_CDN_URL, "");
+		super(_user_id, _api_key, CloudKey.API_URL, CloudKey.CDN_URL, "");
 	}
 
 	public CloudKey(String _user_id, String _api_key, String _base_url, String _cdn_url, String _proxy) throws Exception
@@ -25,33 +25,33 @@ public class CloudKey extends CloudKey_Api
 		super(_user_id, _api_key, _base_url, _cdn_url, _proxy);
 	}
 	
-	public String mediaGetEmbedUrl(String id) throws CloudKey_Exception
+	public String mediaGetEmbedUrl(String id) throws DCException
 	{
-		return this.mediaGetEmbedUrl(CLOUDKEY_API_URL, id, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return this.mediaGetEmbedUrl(CloudKey.API_URL, id, CloudKey.SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 	
-	public String mediaGetEmbedUrl(String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
+	public String mediaGetEmbedUrl(String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws DCException
 	{
-		return this.mediaGetEmbedUrl(CLOUDKEY_API_URL, id, seclevel, asnum, ip, useragent, countries, referers, expires);
+		return this.mediaGetEmbedUrl(CloudKey.API_URL, id, seclevel, asnum, ip, useragent, countries, referers, expires);
 	}
 
-	public String mediaGetEmbedUrl(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws CloudKey_Exception
+	public String mediaGetEmbedUrl(String url, String id, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires)  throws DCException
 	{
 		String _url = url + "/embed/" + this.user_id + "/" + id;
-		return CloudKey_Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires);
+		return Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires);
 	}
 
-	public String mediaGetStreamUrl(String id) throws CloudKey_Exception
+	public String mediaGetStreamUrl(String id) throws DCException
 	{
-		return this.mediaGetStreamUrl(CLOUDKEY_API_URL, id, "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+		return this.mediaGetStreamUrl(CloudKey.API_URL, id, "mp4_h264_aac", CloudKey.SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
 	}
 
-	public String mediaGetStreamUrl(String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download) throws CloudKey_Exception
+	public String mediaGetStreamUrl(String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download) throws DCException
 	{
-		return this.mediaGetStreamUrl(CLOUDKEY_API_URL, id, asset_name, seclevel, asnum, ip, useragent, countries, referers, expires, extension, download);
+		return this.mediaGetStreamUrl(CloudKey.API_URL, id, asset_name, seclevel, asnum, ip, useragent, countries, referers, expires, extension, download);
 	}
 	
-	public String mediaGetStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws CloudKey_Exception
+	public String mediaGetStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws DCException
 	{
 		if (extension == "")
 		{
@@ -60,12 +60,12 @@ public class CloudKey extends CloudKey_Api
 		}
 		if (asset_name.length() >= 15 && asset_name.substring(0, 15) == "jpeg_thumbnail_")
 		{
-			return CLOUDKEY_STATIC_URL + this.user_id + "/" + id + "/" + asset_name + "." + extension;
+			return CloudKey.STATIC_URL + this.user_id + "/" + id + "/" + asset_name + "." + extension;
 		}
 		else
 		{
 			String _url = this.cdn_url + "/route/" + this.user_id + "/" + id + "/" + asset_name + ((extension != "") ? "." + extension : "");
-			return CloudKey_Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires) + (download ? "&throttle=0&helper=0&cache=0" : "");
+			return Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires) + (download ? "&throttle=0&helper=0&cache=0" : "");
 		}
 	}
 	
@@ -126,12 +126,12 @@ public class CloudKey extends CloudKey_Api
 			}
 			else
 			{
-				throw new CloudKey_Exception("Upload failed.");
+				throw new DCException("Upload failed.");
 			}
 		}
 		catch (Exception e)
 		{
-			throw new CloudKey_Exception("Upload failed.");
+			throw new DCException("Upload failed.");
 		}
 		finally
 		{

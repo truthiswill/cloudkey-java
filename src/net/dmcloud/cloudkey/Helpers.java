@@ -1,4 +1,4 @@
-package net.dmcloud;
+package net.dmcloud.cloudkey;
 
 import java.io.*;
 import java.net.*;
@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.zip.Deflater;
 
-public class CloudKey_Helpers
+public class Helpers
 {
 	static public String curl(String targetURL, String urlParameters)
 	{
@@ -100,12 +100,12 @@ public class CloudKey_Helpers
 		return normalize;
 	}
 
-	static public String sign_url(String url, String secret) throws CloudKey_Exception
+	static public String sign_url(String url, String secret) throws DCException
 	{
-		return sign_url(url, secret, CloudKey.CLOUDKEY_SECLEVEL_NONE, "", "", "", null, null, 0);
+		return sign_url(url, secret, CloudKey.SECLEVEL_NONE, "", "", "", null, null, 0);
 	}
 
-	static public String sign_url(String url, String secret, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires) throws CloudKey_Exception
+	static public String sign_url(String url, String secret, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires) throws DCException
 	{
 		expires = (expires == 0) ? (int)(new Date().getTime() + 7200) : expires;
 
@@ -120,45 +120,45 @@ public class CloudKey_Helpers
 
 		String secparams = "";
 		ArrayList<String> public_secparams = new ArrayList<String>();
-		if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_DELEGATE) == 0)
+		if ((seclevel & CloudKey.SECLEVEL_DELEGATE) == 0)
 		{
-			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_ASNUM) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_ASNUM) > 0)
 			{
 				if (asnum == "")
 				{
-					throw new CloudKey_Exception("IP security level required and no IP address provided.");
+					throw new DCException("IP security level required and no IP address provided.");
 				}
 				secparams += asnum;
 			}
-			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_IP) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_IP) > 0)
 			{
 				if (asnum == "")
 				{
-					throw new CloudKey_Exception("IP security level required and no IP address provided.");
+					throw new DCException("IP security level required and no IP address provided.");
 				}
 				secparams += ip;
 			}
-			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_USERAGENT) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_USERAGENT) > 0)
 			{
 				if (asnum == "")
 				{
-					throw new CloudKey_Exception("USERAGENT security level required and no user-agent provided.");
+					throw new DCException("USERAGENT security level required and no user-agent provided.");
 				}
 				secparams += useragent;
 			}
-			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_COUNTRY) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_COUNTRY) > 0)
 			{
 				if (countries == null || countries.length == 0)
 				{
-					throw new CloudKey_Exception("COUNTRY security level required and no country list provided.");
+					throw new DCException("COUNTRY security level required and no country list provided.");
 				}
 				public_secparams.add("cc=" + implode(",", countries).toLowerCase());
 			}
-			if ((seclevel & CloudKey.CLOUDKEY_SECLEVEL_REFERER) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_REFERER) > 0)
 			{
 				if (referers == null || referers.length == 0)
 				{
-					throw new CloudKey_Exception("REFERER security level required and no referer list provided.");
+					throw new DCException("REFERER security level required and no referer list provided.");
 				}
 				try
 				{
@@ -173,7 +173,7 @@ public class CloudKey_Helpers
 				}
 				catch (Exception e)
 				{
-					throw new CloudKey_Exception(e.getMessage());
+					throw new DCException(e.getMessage());
 				}
 			}
 		}
@@ -187,7 +187,7 @@ public class CloudKey_Helpers
 			}
             catch (Exception e)
             {
-            	throw new CloudKey_Exception(e.getMessage());
+            	throw new DCException(e.getMessage());
 			}
 		}
 		String rand = "";

@@ -1,4 +1,4 @@
-<%@ page import="net.dmcloud.*"%>
+<%@ page import="net.dmcloud.cloudkey.*"%>
 <%@ page import="net.dmcloud.util.*"%>
 
 <%@ include file="Config.jsp"%>

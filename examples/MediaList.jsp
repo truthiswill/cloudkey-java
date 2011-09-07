@@ -1,6 +1,6 @@
 <h1>My videos on DM Cloud</h1>
 
-<%@ page import="net.dmcloud.*"%>
+<%@ page import="net.dmcloud.cloudkey.*"%>
 <%@ page import="net.dmcloud.util.*"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.net.InetAddress"%>
@@ -33,9 +33,9 @@ try
         out.write("<p>Title : " + item.pull("meta.title") + "</p>");
         out.write("<p><img src=\"" + item.pull("assets.jpeg_thumbnail_auto.stream_url") + "\" /></p>");
         String[] referers = {server_url};
-        String embed_url = cloud.mediaGetEmbedUrl(item.get("id").toString(), CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
+        String embed_url = cloud.mediaGetEmbedUrl(item.get("id").toString(), CloudKey.SECLEVEL_REFERER, "", "", "", null, referers, 0);
         out.write("<iframe width=\"" + item.pull("assets.mp4_h264_aac.video_width") + "\" height=\"" + item.pull("assets.mp4_h264_aac.video_height") + "\" src=\"" + embed_url  + "\"></iframe>");
-        String stream_url = cloud.mediaGetStreamUrl(item.get("id").toString(), "mp4_h264_aac", CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0, "", false);
+        String stream_url = cloud.mediaGetStreamUrl(item.get("id").toString(), "mp4_h264_aac", CloudKey.SECLEVEL_REFERER, "", "", "", null, referers, 0, "", false);
         String dl_url = item.pull("assets.source.download_url");
         out.write("<p><a href=\"" + dl_url + "\">Download source</a></p>");
         out.write("<p><a href=\"" + stream_url + "\">Stream url</a></p>");

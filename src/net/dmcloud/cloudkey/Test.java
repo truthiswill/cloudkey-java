@@ -1,4 +1,4 @@
-package net.dmcloud;
+package net.dmcloud.cloudkey;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import net.dmcloud.util.*;
 import junit.framework.TestCase;
 
-public class CloudKey_Test extends TestCase
+public class Test extends TestCase
 {
 	public static String user_id = "YOUR USER ID";
 	public static String api_key = "YOUR API KEY";
@@ -16,7 +16,7 @@ public class CloudKey_Test extends TestCase
 	{
 		assertEquals
 		(
-			CloudKey_Helpers.normalize
+			Helpers.normalize
 			(
 				DCArray.create()
 					   .push("foo")
@@ -27,7 +27,7 @@ public class CloudKey_Test extends TestCase
 
 		assertEquals
 		(
-			CloudKey_Helpers.normalize
+			Helpers.normalize
 			(
 				DCObject.create()
 						.push("yellow", 1)
@@ -38,7 +38,7 @@ public class CloudKey_Test extends TestCase
 
 		assertEquals
 		(
-			CloudKey_Helpers.normalize
+			Helpers.normalize
 			(
 				DCArray.create()
 					   .push("foo")
@@ -61,7 +61,7 @@ public class CloudKey_Test extends TestCase
 		{
 			CloudKey cloud = new CloudKey(user_id, api_key);
 			String[] referers = {"http://test.dmcloud.net"};
-			cloud.mediaGetEmbedUrl(CloudKey.CLOUDKEY_API_URL, video_id, CloudKey.CLOUDKEY_SECLEVEL_REFERER, "", "", "", null, referers, 0);
+			cloud.mediaGetEmbedUrl(CloudKey.API_URL, video_id, CloudKey.SECLEVEL_REFERER, "", "", "", null, referers, 0);
 		}
 		catch(Exception e)
 		{
@@ -122,7 +122,7 @@ public class CloudKey_Test extends TestCase
 		catch (Exception e)
 		{
 			error = true;
-			assertEquals(((CloudKey_Exception)e).getCode(), 400);
+			assertEquals(((DCException)e).getCode(), 400);
 		}
 		finally
 		{
@@ -135,7 +135,7 @@ public class CloudKey_Test extends TestCase
 		Boolean error = false;
 		try
 		{
-			CloudKey_Helpers.sign_url("", "", CloudKey.CLOUDKEY_SECLEVEL_COUNTRY, "", "", "", null, null, 0);
+			Helpers.sign_url("", "", CloudKey.SECLEVEL_COUNTRY, "", "", "", null, null, 0);
 		}
 		catch (Exception e)
 		{
