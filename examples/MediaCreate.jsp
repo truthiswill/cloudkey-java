@@ -1,4 +1,6 @@
 <%@ page import="net.dmcloud.*"%>
+<%@ page import="net.dmcloud.util.*"%>
+
 <%@ include file="Config.jsp"%>
 <%
     String url = request.getParameter("url");

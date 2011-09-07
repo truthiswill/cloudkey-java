@@ -2,6 +2,9 @@ package net.dmcloud;
 
 import java.io.*;
 import java.util.Map;
+
+import net.dmcloud.util.*;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;

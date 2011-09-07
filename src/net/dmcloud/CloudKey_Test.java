@@ -2,6 +2,8 @@ package net.dmcloud;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import net.dmcloud.util.*;
 import junit.framework.TestCase;
 
 public class CloudKey_Test extends TestCase

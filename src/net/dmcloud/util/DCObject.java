@@ -1,4 +1,4 @@
-package net.dmcloud;
+package net.dmcloud.util;
 
 import java.util.HashMap;
 import java.util.Map;

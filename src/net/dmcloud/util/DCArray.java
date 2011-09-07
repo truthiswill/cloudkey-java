@@ -1,4 +1,4 @@
-package net.dmcloud;
+package net.dmcloud.util;
 
 import java.util.ArrayList;
 import java.util.Map;

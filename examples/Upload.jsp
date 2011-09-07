@@ -59,6 +59,7 @@
 }
 </style>
 <%@ page import="net.dmcloud.*"%>
+<%@ page import="net.dmcloud.util.*"%>
 <%@ page import="java.net.InetAddress"%>
 <%@ include file="Config.jsp"%>
 <%

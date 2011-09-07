@@ -1,6 +1,7 @@
 <h1>My videos on DM Cloud</h1>
 
 <%@ page import="net.dmcloud.*"%>
+<%@ page import="net.dmcloud.util.*"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.net.InetAddress"%>
 <%@ page import="java.util.ArrayList"%>
