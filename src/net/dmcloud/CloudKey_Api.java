@@ -1,4 +1,4 @@
-package com.dmcloud;
+package net.dmcloud;
 
 import java.util.Map;
 import org.codehaus.jackson.map.ObjectMapper;

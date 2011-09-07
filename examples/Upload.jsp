@@ -58,7 +58,7 @@
   background-color: #ffafae;
 }
 </style>
-<%@ page import="com.dmcloud.*"%>
+<%@ page import="net.dmcloud.*"%>
 <%@ page import="java.net.InetAddress"%>
 <%@ include file="Config.jsp"%>
 <%
