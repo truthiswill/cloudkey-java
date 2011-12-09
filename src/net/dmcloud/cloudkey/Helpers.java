@@ -107,7 +107,7 @@ public class Helpers
 
 	static public String sign_url(String url, String secret, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires) throws DCException
 	{
-		expires = (expires == 0) ? (int)(new Date().getTime() + 7200) : expires;
+		expires = (expires == 0) ? (int)((new Date().getTime() / 1000) + 7200) : expires;
 
 		// Compute digest
 		String[] tokens = url.split("\\?");
