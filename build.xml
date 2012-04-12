@@ -14,7 +14,7 @@
   <target name="compile" description="Compiles CloudKey" depends="init">
     <javac srcdir="${src}" destdir="${build}">
       <classpath>
-        <path location="${thirdparty}/commons-codec-1.4.jar"/>
+        <path location="${thirdparty}/commons-codec-1.6.jar"/>
         <path location="${thirdparty}/commons-httpclient-3.1.jar"/>
         <path location="${thirdparty}/commons-logging-1.1.1.jar"/>
         <path location="${thirdparty}/jackson-core-asl-1.8.1.jar"/>
