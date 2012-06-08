@@ -46,6 +46,11 @@ public class CloudKey extends Api
 		return this.mediaGetStreamUrl(CloudKey.API_URL, id, "mp4_h264_aac", CloudKey.SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
 	}
 
+	public String mediaGetStreamUrl(String id, String asset_name) throws DCException
+	{
+		return this.mediaGetStreamUrl(CloudKey.API_URL, id, asset_name, CloudKey.SECLEVEL_NONE, "", "", "", null, null, 0, "", false);
+	}
+
 	public String mediaGetStreamUrl(String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download) throws DCException
 	{
 		return this.mediaGetStreamUrl(CloudKey.API_URL, id, asset_name, seclevel, asnum, ip, useragent, countries, referers, expires, extension, download);
