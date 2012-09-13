@@ -79,9 +79,32 @@ public class Example {
         }
     }
 
+    public static void getApiKey() {
+        String ck_user_id = "4c1a4d3edede832bfd000000";
+        String ck_api_key = "59f7d6fca9080ec7b59b83eab00e104e3d3d2789";
+        CloudKey cloudkey = new CloudKey(ck_user_id, ck_api_key, base_url, CloudKey.CDN_URL, "");
+
+        DCObject ck_obj = DCObject.create()
+            .push("id", user_id)
+            .push("fields", DCArray.create()
+                  .push("id")
+                  .push("api_key")
+                  .push("streaming_active")
+                  .push("is_active")
+                  .push("permissions")
+                  );
+        try {
+            DCObject result = cloudkey.call("user.info", ck_obj);
+            System.out.println(result.get("api_key"));
+        } catch (DCException e) {
+            System.out.println(e);
+        }
+   }
+
     public static void main(String[] args) {
         //mediaList();
-        testToken();
+        //testToken();
+        getApiKey();
     }
 
 }
