@@ -49,9 +49,9 @@ public class Example {
 
     public static void testToken() {
         FAToken token1 = new FAToken(user_id, "111111111111111111111111", api_key, 1338947483);
-        token1.setCallback("http://www.dmcloud.com/fa2");
-        token1.setData("firstname", "john");
-        token1.setData("lastname", "doe");
+        token1.setCallbackUrl("http://www.dmcloud.com/fa2");
+        token1.setMeta("firstname", "john");
+        token1.setMeta("lastname", "doe");
         token1.setRight("start_date", "1327946483");
         token1.setRight("end_date", "1338947483");
         token1.setRight("playback_window", "600");
@@ -74,6 +74,7 @@ public class Example {
                 }
             }
         } catch(Exception e) {
+            e.printStackTrace();
             System.out.println("oups");
             System.out.println(e);
         }
@@ -103,8 +104,8 @@ public class Example {
 
     public static void main(String[] args) {
         //mediaList();
-        //testToken();
-        getApiKey();
+        testToken();
+        //getApiKey();
     }
 
 }

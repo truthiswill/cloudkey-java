@@ -17,8 +17,8 @@ public class FAToken {
     private String media_id = null;
     private String api_key = null;
     private String nonce = null;
-    private HashMap<String,String> rights;
-    private HashMap<String,String> meta;
+    private HashMap<String,String> rights = null;
+    private HashMap<String,String> meta = null;
     private String callback_url = null;
     private Integer expires = 0;
     private Integer maxReplay = 0;
@@ -53,9 +53,13 @@ public class FAToken {
         }
         if (token_info.containsKey("rights")) {
             rights = (HashMap<String,String>)token_info.get("rights");
+        } else {
+            rights = new HashMap<String,String>();
         }
         if (token_info.containsKey("meta")) {
             meta = (HashMap<String,String>)token_info.get("meta");
+        } else {
+            meta = new HashMap<String,String>();
         }
         if (token_info.containsKey("callback_url")) {
             callback_url = token_info.get("callback_url").toString();
@@ -157,7 +161,6 @@ public class FAToken {
     public String toJSON() throws Exception {
 		ObjectMapper mapper;
         DCObject token_info;
-
         if (nonce == null) {
             genNonce();
         }
