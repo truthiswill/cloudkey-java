@@ -6,7 +6,7 @@ import java.util.Map;
 import net.dmcloud.util.*;
 import junit.framework.TestCase;
 
-public class Test extends TestCase
+public class CloudKeyTest extends TestCase
 {
 	public static String user_id = "YOUR USER ID";
 	public static String api_key = "YOUR API KEY";

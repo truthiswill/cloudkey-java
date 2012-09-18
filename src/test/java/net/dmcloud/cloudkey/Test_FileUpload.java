@@ -4,6 +4,7 @@ import java.io.File;
 
 public class Test_FileUpload
 {
+/*
 	public static void main(String[] args)
 	{
 		try
@@ -18,4 +19,5 @@ public class Test_FileUpload
 			e.printStackTrace();
 		}
 	}
+*/
 }
