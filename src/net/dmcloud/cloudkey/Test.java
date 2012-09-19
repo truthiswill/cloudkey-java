@@ -97,7 +97,7 @@ public class Test extends TestCase
 			for(int i=0; i<list.size(); i++)
 			{
 				DCObject item = DCObject.create((Map)list.get(i));
-				assertEquals((item.pull("meta.title") != ""), true);
+				assertEquals((!item.pull("meta.title").equals("")), true);
 			}
 		}
 		catch (Exception e)

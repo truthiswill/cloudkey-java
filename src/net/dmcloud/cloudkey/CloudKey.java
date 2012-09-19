@@ -58,10 +58,10 @@ public class CloudKey extends Api
 
 	public String mediaGetStreamUrl(String url, String id, String asset_name, int seclevel, String asnum, String ip, String useragent, String[] countries, String[] referers, int expires, String extension, Boolean download)  throws DCException
 	{
-		if (extension == "")
+		if (extension.equals(""))
 		{
 			String[] parts = asset_name.split("\\_");
-			extension = (parts[0] != asset_name) ? parts[0] : extension;
+			extension = (!parts[0].equals(asset_name)) ? parts[0] : extension;
 		}
 		if (asset_name.length() >= 15 && asset_name.substring(0, 15) == "jpeg_thumbnail_")
 		{
@@ -69,7 +69,7 @@ public class CloudKey extends Api
 		}
 		else
 		{
-			String _url = this.cdn_url + "/route/" + this.user_id + "/" + id + "/" + asset_name + ((extension != "") ? "." + extension : "");
+			String _url = this.cdn_url + "/route/" + this.user_id + "/" + id + "/" + asset_name + ((!extension.equals("")) ? "." + extension : "");
 			return Helpers.sign_url(_url, this.api_key, seclevel, asnum, ip, useragent, countries, referers, expires) + (download ? "&throttle=0&helper=0&cache=0" : "");
 		}
 	}
@@ -165,11 +165,11 @@ public class CloudKey extends Api
 		{
 			args.push("status", true);
 		}
-		if (jsonp_cb != "")
+		if (!jsonp_cb.equals(""))
 		{
 			args.push("jsonp_cb", jsonp_cb);
 		}
-		if (target != "")
+		if (!target.equals(""))
 		{
 			args.push("target", target);
 		}

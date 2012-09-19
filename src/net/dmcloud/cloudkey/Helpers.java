@@ -125,7 +125,7 @@ public class Helpers
 		{
 			if ((seclevel & CloudKey.SECLEVEL_ASNUM) > 0)
 			{
-				if (asnum == "")
+				if (asnum.equals(""))
 				{
 					throw new DCException("IP security level required and no IP address provided.");
 				}
@@ -133,7 +133,7 @@ public class Helpers
 			}
 			if ((seclevel & CloudKey.SECLEVEL_IP) > 0)
 			{
-				if (asnum == "")
+				if (asnum.equals(""))
 				{
 					throw new DCException("IP security level required and no IP address provided.");
 				}
@@ -141,7 +141,7 @@ public class Helpers
 			}
 			if ((seclevel & CloudKey.SECLEVEL_USERAGENT) > 0)
 			{
-				if (asnum == "")
+				if (asnum.equals(""))
 				{
 					throw new DCException("USERAGENT security level required and no user-agent provided.");
 				}
@@ -184,7 +184,7 @@ public class Helpers
 		{
             try
             {
-				public_secparams_encoded = Base64.encodeBase64String(gzcompress(implode("&", public_secparams)));
+				public_secparams_encoded = Base64.encodeBase64URLSafeString(gzcompress(implode("&", public_secparams)));
 			}
             catch (Exception e)
             {
@@ -201,7 +201,7 @@ public class Helpers
 
         String digest = md5(seclevel + url + expires + rand + secret + secparams + public_secparams_encoded);
 
-		return url + "?" + (query != "" ? query + '&' : "") + "auth=" + expires + "-" + seclevel + "-" + rand + "-" + digest + (public_secparams_encoded != "" ? "-" + public_secparams_encoded : "");
+		return url + "?" + (!query.equals("") ? query + '&' : "") + "auth=" + expires + "-" + seclevel + "-" + rand + "-" + digest + (public_secparams_encoded != "" ? "-" + public_secparams_encoded : "");
 	}
 
 	private static String implode(String delim, String[] args)

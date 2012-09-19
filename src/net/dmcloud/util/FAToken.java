@@ -187,7 +187,7 @@ public class FAToken {
     }
 
     public String toBase64() throws Exception {
-        return Base64.encodeBase64String(toJSON().getBytes());
+        return Base64.encodeBase64URLSafeString(toJSON().getBytes());
    }
 
 }
