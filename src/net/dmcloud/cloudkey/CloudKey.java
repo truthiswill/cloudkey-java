@@ -63,7 +63,7 @@ public class CloudKey extends Api
 			String[] parts = asset_name.split("\\_");
 			extension = (!parts[0].equals(asset_name)) ? parts[0] : extension;
 		}
-		if (asset_name.length() >= 15 && asset_name.substring(0, 15) == "jpeg_thumbnail_")
+		if (asset_name.length() >= 15 && asset_name.substring(0, 15).equals("jpeg_thumbnail_"))
 		{
 			return CloudKey.STATIC_URL + this.user_id + "/" + id + "/" + asset_name + "." + extension;
 		}
