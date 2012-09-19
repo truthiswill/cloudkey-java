@@ -2,3 +2,5 @@
 !.gitignore
 .class
 bin/
+target/*
+!target/*.jar
