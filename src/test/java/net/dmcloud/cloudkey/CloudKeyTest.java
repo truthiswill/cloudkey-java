@@ -1,10 +1,13 @@
 package net.dmcloud.cloudkey;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
-
-import net.dmcloud.util.*;
+import java.util.Properties;
 import junit.framework.TestCase;
+import net.dmcloud.util.*;
 
 public class CloudKeyTest extends TestCase
 {
@@ -12,6 +15,24 @@ public class CloudKeyTest extends TestCase
 	public static String api_key = "YOUR API KEY";
 	public static String video_id = "YOUR VIDEO ID";
 	
+        @Override
+        protected void setUp()
+        {
+            Properties prop = new Properties();
+            try
+            {
+                InputStream in = getClass().getClassLoader().getResourceAsStream("cloudkey.properties");
+                prop.load(in);
+                user_id = prop.getProperty("user_id");
+                api_key = prop.getProperty("api_key");
+                video_id = prop.getProperty("video_id");
+            }
+            catch (IOException e)
+            {
+                System.out.println("Cannot load cloudkey.properties file. Using defaults.");
+            }
+        }
+        
 	public void testCloudKey_Normalize()
 	{
 		assertEquals
