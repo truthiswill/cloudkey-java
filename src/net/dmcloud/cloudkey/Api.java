@@ -7,14 +7,15 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class Api
 {
-	public static int SECLEVEL_NONE      = 0;
-	public static int SECLEVEL_DELEGATE  = 1 << 0;
-	public static int SECLEVEL_ASNUM     = 1 << 1;
-	public static int SECLEVEL_IP        = 1 << 2;
+	public static int SECLEVEL_NONE = 0;
+	public static int SECLEVEL_DELEGATE = 1 << 0;
+	public static int SECLEVEL_ASNUM = 1 << 1;
+	public static int SECLEVEL_IP = 1 << 2;
 	public static int SECLEVEL_USERAGENT = 1 << 3;
-	public static int SECLEVEL_USEONCE   = 1 << 4;
-	public static int SECLEVEL_COUNTRY   = 1 << 5;
-	public static int SECLEVEL_REFERER   = 1 << 6;
+	public static int SECLEVEL_USEONCE = 1 << 4;
+	public static int SECLEVEL_COUNTRY = 1 << 5;
+	public static int SECLEVEL_REFERER = 1 << 6;
+	public static int SECLEVEL_REFERER_STRICT = 1 << 15;
 
 	public static String API_URL = "http://api.dmcloud.net";
 	public static String CDN_URL = "http://cdn.dmcloud.net";

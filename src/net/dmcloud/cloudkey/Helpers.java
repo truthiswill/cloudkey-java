@@ -155,7 +155,7 @@ public class Helpers
 				}
 				public_secparams.add("cc=" + implode(",", countries).toLowerCase());
 			}
-			if ((seclevel & CloudKey.SECLEVEL_REFERER) > 0)
+			if ((seclevel & CloudKey.SECLEVEL_REFERER) > 0 || (seclevel & CloudKey.SECLEVEL_REFERER_STRICT) > 0)
 			{
 				if (referers == null || referers.length == 0)
 				{
@@ -179,7 +179,7 @@ public class Helpers
 			}
 		}
 		String public_secparams_encoded = "";
-		
+
 		if (public_secparams.size() > 0)
 		{
             try
@@ -245,7 +245,7 @@ public class Helpers
         {
         	throw new Error("No MD5 support in this VM.");
         }
-        
+
         StringBuilder hashString = new StringBuilder();
         for (int i=0; i<hash.length; i++)
         {
@@ -258,7 +258,7 @@ public class Helpers
         	else
         	{
         		hashString.append(hex.substring(hex.length() - 2));
-        	}	
+        	}
         }
         return hashString.toString();
     }
@@ -268,7 +268,7 @@ public class Helpers
         byte[] input = inputString.getBytes("UTF-8");
         Deflater compresser = new Deflater();
         compresser.setInput(input);
-        compresser.finish();        
+        compresser.finish();
         ByteArrayOutputStream bos = new ByteArrayOutputStream(input.length);
         byte[] buf = new byte[1024];
         while (!compresser.finished())
@@ -277,7 +277,7 @@ public class Helpers
         	bos.write(buf, 0, count);
         }
         bos.close();
-        
+
         return bos.toByteArray();
     }
 }
