@@ -91,6 +91,9 @@ public class Api
 			message += " : " + json_response.pull("error.message").toString();
 			throw new DCException(message, error_code);
 		}
+		if (json_response.get("result") == null) {
+			return null;
+		}
 		return DCObject.create((Map)json_response.get("result"));
 	}
 }

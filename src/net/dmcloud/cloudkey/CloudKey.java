@@ -136,7 +136,7 @@ public class CloudKey extends Api
 		}
 		catch (Exception e)
 		{
-			throw new DCException("Upload failed.");
+			throw new DCException("Upload failed: " + e.getMessage());
 		}
 		finally
 		{
