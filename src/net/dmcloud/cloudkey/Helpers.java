@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.zip.Deflater;
 import org.apache.commons.codec.binary.Base64;
+import java.nio.charset.*;
 
 public class Helpers
 {
@@ -234,7 +235,7 @@ public class Helpers
 
 	public static String md5(String password)
     {
-		byte[] uniqueKey = password.getBytes();
+		byte[] uniqueKey = password.getBytes(Charset.forName("UTF-8"));
         byte[] hash = null;
 
         try
